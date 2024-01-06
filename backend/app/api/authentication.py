@@ -67,7 +67,6 @@ def generate_and_save_access_token(FyersCredentials):
 
 
 def get_user_details(client_id,access_token):
-
     # Initialize the FyersModel instance with your client_id, access_token, and enable async mode
     fyers = fyersModel.FyersModel(client_id=client_id, is_async=False, token=access_token, log_path="")
 
@@ -77,3 +76,11 @@ def get_user_details(client_id,access_token):
         return response
     else:
         return None
+    
+def get_access_token():
+    file_path = "access.txt"
+    # Open the file in read mode
+    with open(file_path, "r") as file:
+        # Read the contents of the file into a string
+        file_content = file.read()
+    return file_content
