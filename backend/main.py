@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.authentication import generate_and_save_access_token, get_user_details,get_access_token
 from credential import FyersCredentials
 app = FastAPI()
-
+strategy_started = False
 # Enable CORS for all origins
 app.add_middleware(
     CORSMiddleware,
@@ -52,4 +52,25 @@ def user_details():
             return result
         else:
             return {"Login failed"}
+
+@app.post("/api/start-strategy")
+def start_strategy():
+    global strategy_started
+    if not strategy_started:
+        # Add logic to start the strategy here
+        strategy_started = True
+        return {"message": "Strategy started successfully", }
+    else:
+        return {"message": "Strategy is already running"}
+
+
+@app.post("/api/stop-strategy")
+def stop_strategy():
+    global strategy_started
+    if strategy_started:
+        # Add logic to stop the strategy here
+        strategy_started = False
+        return {"message": "Strategy stopped successfully"}
+    else:
+        return {"message": "Strategy is not running"}
 

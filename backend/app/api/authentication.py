@@ -72,7 +72,7 @@ def get_user_details(client_id,access_token):
 
     # Make a request to get the user profile information
     response = fyers.get_profile()
-    if response:
+    if response['code']==200:
         return response
     else:
         return None
