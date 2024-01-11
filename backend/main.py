@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.authentication import generate_and_save_access_token, get_user_details,get_access_token
 from credential import FyersCredentials
+
 app = FastAPI()
 strategy_started = False
 # Enable CORS for all origins
@@ -15,7 +16,7 @@ app.add_middleware(
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Hello": ['world']}
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, query_param: str = None):

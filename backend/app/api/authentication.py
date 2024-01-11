@@ -76,7 +76,7 @@ def get_user_details(client_id,access_token):
         return response
     else:
         return None
-    
+
 def get_access_token():
     file_path = "access.txt"
     # Open the file in read mode
