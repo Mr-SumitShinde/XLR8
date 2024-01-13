@@ -1,6 +1,6 @@
 import React from "react";
 import AppNavbar from "../components/Navbar";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row,Col } from "react-bootstrap";
 import StrategyBuilderForm from "../components/StrategyBuilderForm";
 
 function Dashboard(userDetails) {
@@ -13,11 +13,7 @@ function Dashboard(userDetails) {
   return (
     <div className="App">
       <AppNavbar />
-      <Container>
-        <Row>
-        <StrategyBuilderForm/>
-        </Row>
-      </Container>
+      <StrategyBuilderForm/>
     </div>
   );
 }
