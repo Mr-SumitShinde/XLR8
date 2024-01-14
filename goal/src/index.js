@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import reportWebVitals from './reportWebVitals';
 import MyStrategy from './pages/MyStrategy';
 import CheckUserDetails from './services/checkUserDetails';
+import CreateStrategy from './pages/CreateStrategy';
 
 const Root = () => {
   const userDetails = CheckUserDetails()
@@ -26,6 +27,10 @@ const Root = () => {
           <Route
             path="/strategy"
             element={userDetails ? <MyStrategy /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/create-strategy"
+            element={<CreateStrategy/>}
           />
         </Routes>
       </Router>

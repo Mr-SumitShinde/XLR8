@@ -34,7 +34,7 @@ function AppNavbar() {
   const navigateToCreateStrategies = () => {
     // Add logic for creating strategies
     // For example, you might want to redirect to a different page for creating strategies.
-    navigate("/create-strategies");
+    navigate("/create-strategy");
   };
   return (
     <Navbar
@@ -55,7 +55,7 @@ function AppNavbar() {
               <Nav.Link onClick={navigateToDashboard}>Dashboard</Nav.Link>
               <Nav.Link onClick={navigateToStrategies}>My Strategies</Nav.Link>
               <Nav.Link onClick={navigateToCreateStrategies}>
-                Create Strategies
+                Create Strategy
               </Nav.Link>
 
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">

@@ -1,7 +1,5 @@
 import React from "react";
 import AppNavbar from "../components/Navbar";
-import { Container, Row,Col } from "react-bootstrap";
-import StrategyBuilderForm from "../components/StrategyBuilderForm";
 
 function Dashboard(userDetails) {
   const user = userDetails.userDetails;
@@ -13,7 +11,6 @@ function Dashboard(userDetails) {
   return (
     <div className="App">
       <AppNavbar />
-      <StrategyBuilderForm/>
     </div>
   );
 }
