@@ -10,8 +10,8 @@ import {
 } from "react-bootstrap";
 
 function OptionsTradeCard(props) {
-  const { headerContent, buttonText, onButtonClick } = props;
-
+  const { headerContent, buttonText } = props;
+  const [isLoading, setIsLoading] = useState(false);
   // Define state for the radio button
   const [selectedValue, setSelectedValue] = useState(""); // Set the initial value as needed
 
@@ -26,6 +26,35 @@ function OptionsTradeCard(props) {
       Please select a radio button first.
     </Tooltip>
   );
+
+  const onButtonClick = () => {
+    if (selectedValue) {
+      setIsLoading(true);
+
+      // Perform API call here
+      fetch("YOUR_API_ENDPOINT", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          selectedValue,
+          // Include other data you want to send to the backend
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("API Response:", data);
+          setIsLoading(false);
+          // Handle success or error as needed
+        })
+        .catch((error) => {
+          console.error("API Error:", error);
+          setIsLoading(false);
+          // Handle error
+        });
+    }
+  };
 
   return (
     <Card>
@@ -55,7 +84,11 @@ function OptionsTradeCard(props) {
             </Row>
           </container>
         </Form>
-        {selectedValue ? (
+        {isLoading ? (
+          <Button className="mt-3" variant="primary" disabled>
+            Loading...
+          </Button>
+        ) : selectedValue ? (
           <Button className="mt-3" variant="primary" onClick={onButtonClick}>
             {buttonText}
           </Button>

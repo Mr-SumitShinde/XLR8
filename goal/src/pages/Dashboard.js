@@ -5,13 +5,11 @@ import {Container, Row, Col} from "react-bootstrap";
 import UserInfoCard from "../components/UserInfoCard";
 
 function Dashboard(userDetails) {
+
   const userInfo = userDetails.userDetails;
   const bankNiftyProps = {
     headerContent: "Bank Nifty",
     buttonText: "Take Trade",
-    onButtonClick: () => {
-      console.log("Button clicked!");
-    }
   };
 
   const niftyProps = {
