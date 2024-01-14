@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Button, Card, Form, Row, Col } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Form,
+  Row,
+  Col,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 
 function OptionsTradeCard(props) {
   const { headerContent, buttonText, onButtonClick } = props;
@@ -13,10 +21,16 @@ function OptionsTradeCard(props) {
     // You can perform additional actions based on the selected value if needed
   };
 
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Please select a radio button first.
+    </Tooltip>
+  );
+
   return (
     <Card>
       <Card.Header as="h3">{headerContent}</Card.Header>
-      <Card.Body >
+      <Card.Body>
         <Form>
           <container>
             <Row className="justify-content-md-center">
@@ -41,9 +55,24 @@ function OptionsTradeCard(props) {
             </Row>
           </container>
         </Form>
-        <Button className="mt-3" variant="primary" onClick={onButtonClick}>
-          {buttonText}
-        </Button>
+        {selectedValue ? (
+          <Button className="mt-3" variant="primary" onClick={onButtonClick}>
+            {buttonText}
+          </Button>
+        ) : (
+          <OverlayTrigger placement="right" overlay={renderTooltip}>
+            <span>
+              <Button
+                className="mt-3"
+                variant="primary"
+                onClick={onButtonClick}
+                disabled={!selectedValue}
+              >
+                {buttonText}
+              </Button>
+            </span>
+          </OverlayTrigger>
+        )}
       </Card.Body>
     </Card>
   );

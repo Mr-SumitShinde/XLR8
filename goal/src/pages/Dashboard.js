@@ -5,7 +5,7 @@ import {Container, Row, Col} from "react-bootstrap";
 import UserInfoCard from "../components/UserInfoCard";
 
 function Dashboard(userDetails) {
-  //const user = userDetails.userDetails;
+  const userInfo = userDetails.userDetails;
   const bankNiftyProps = {
     headerContent: "Bank Nifty",
     buttonText: "Take Trade",
@@ -32,12 +32,13 @@ function Dashboard(userDetails) {
     }
   };
   const user = {
-    name: 'John Doe',
+    name: userInfo.name,
     fund: '$100,000',
   };
 
   return (
     <div className="App">
+      {console.log(userInfo)}
       <AppNavbar />
       <Container fluid="md" gap={2}>
       <Row className="mb-3">
