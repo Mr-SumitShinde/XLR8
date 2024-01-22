@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import {
   Button,
   Card,
@@ -10,7 +11,8 @@ import {
 } from "react-bootstrap";
 
 function OptionsTradeCard(props) {
-  const { headerContent, buttonText } = props;
+  const buttonText = "Take Trade"
+  const { headerContent, indexCode } = props;
   const [isLoading, setIsLoading] = useState(false);
   // Define state for the radio button
   const [selectedValue, setSelectedValue] = useState(""); // Set the initial value as needed
@@ -31,20 +33,17 @@ function OptionsTradeCard(props) {
     if (selectedValue) {
       setIsLoading(true);
 
-      // Perform API call here
-      fetch("YOUR_API_ENDPOINT", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          selectedValue,
-          // Include other data you want to send to the backend
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("API Response:", data);
+      const apiUrl = process.env.REACT_APP_API_SERVER + "/api/trade-option";
+      const requestData = {
+        selectedValue: selectedValue,
+        index: indexCode, // Replace with your actual boolean value
+        };
+
+      // Perform API call using Axios
+      axios
+        .post(apiUrl, requestData)
+        .then((response) => {
+          console.log("API Response:", response.data);
           setIsLoading(false);
           // Handle success or error as needed
         })

@@ -1,4 +1,10 @@
 export default function dataProcessService(response) {
-  const data = response.data.data;
+  const name = response;
+  const fund = response.fund
+  const data = {
+    'name': name,
+    'funds': fund
+  }
+  console.log(data);
   return data;
 }

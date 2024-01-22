@@ -12,7 +12,7 @@ function CheckUserDetails() {
       try {
         const apiUrl = process.env.REACT_APP_API_SERVER + "/getUserDetails";
         const response = await axios.get(apiUrl);
-        setUserDetails(dataProcessService(response));
+        setUserDetails(dataProcessService(response.data));
       } catch (error) {
         console.error("Error fetching user details:", error);
       }

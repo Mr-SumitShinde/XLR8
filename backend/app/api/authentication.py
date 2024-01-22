@@ -71,9 +71,14 @@ def get_user_details(client_id,access_token):
     fyers = fyersModel.FyersModel(client_id=client_id, is_async=False, token=access_token, log_path="")
 
     # Make a request to get the user profile information
-    response = fyers.get_profile()
-    if response['code']==200:
-        return response
+    profile = fyers.get_profile()
+    funds = fyers.funds()
+    if profile['code']==200:
+        user = {
+            'profile': profile,
+            'fund': funds
+        }
+        return user
     else:
         return None
 

@@ -9,25 +9,17 @@ function Dashboard(userDetails) {
   const userInfo = userDetails.userDetails;
   const bankNiftyProps = {
     headerContent: "Bank Nifty",
-    buttonText: "Take Trade",
+    indexCode:"NSE:NIFTYBANK-INDEX",
   };
 
   const niftyProps = {
     headerContent: "Nifty",
-    content: "Dummy Content",
-    buttonText: "Take Trade",
-    onButtonClick: () => {
-      console.log("Button clicked!");
-    }
+    indexCode:"NSE:NIFTY50-INDEX",
   };
 
   const finNiftyProps = {
     headerContent: "Fin Nifty",
-    content: "Dummy Content",
-    buttonText: "Take Trade",
-    onButtonClick: () => {
-      console.log("Button clicked!");
-    }
+    indexCode:"NSE:FINNIFTY-INDEX",
   };
   const user = {
     name: userInfo.name,

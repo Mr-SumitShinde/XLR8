@@ -1,10 +1,17 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.authentication import generate_and_save_access_token, get_user_details,get_access_token
+from pydantic import BaseModel
 from credential import FyersCredentials
+from app.api.authentication import generate_and_save_access_token, get_user_details,get_access_token
+from app.api.options import take_trade
 
 app = FastAPI()
 strategy_started = False
+
+class TradeOptionRequest(BaseModel):
+    selectedValue: str
+    index: str 
+    
 # Enable CORS for all origins
 app.add_middleware(
     CORSMiddleware,
@@ -43,8 +50,8 @@ def authenticate_user():
 def user_details():
     access_token = get_access_token()
     user_details = get_user_details(FyersCredentials.client_id, access_token)
-    
-    if user_details:
+
+    if user_details and user_details['profile']:
         return user_details
     else:
         # If user_details is not available, attempt to authenticate and get user details
@@ -75,3 +82,12 @@ def stop_strategy():
     else:
         return {"message": "Strategy is not running"}
 
+@app.post("/api/trade-option")
+def trade_option(request_data: TradeOptionRequest):
+    try:
+        access_token = get_access_token()
+        respose = take_trade(FyersCredentials.client_id, access_token, request_data)
+        return {"message": 'sucess', "response": respose}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
