@@ -8,7 +8,7 @@
 node_modules
 backend/credential.py
 backend/access.txt
-__pycache__
+backend/__pycache__/
 # Book build output
 _book
 
