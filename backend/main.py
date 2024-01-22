@@ -4,6 +4,9 @@ from pydantic import BaseModel
 from credential import FyersCredentials
 from app.api.authentication import generate_and_save_access_token, get_user_details,get_access_token
 from app.api.options import take_trade
+import os
+os.environ['PYTHONDONTWRITEBYTECODE'] = '1'
+
 
 app = FastAPI()
 strategy_started = False
@@ -24,10 +27,6 @@ app.add_middleware(
 @app.get("/")
 def read_root():
     return {"Hello": ['world']}
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, query_param: str = None):
-    return {"item_id": item_id, "query_param": query_param}
 
 def authenticate_and_get_user_details():
     access_token = generate_and_save_access_token(FyersCredentials)
