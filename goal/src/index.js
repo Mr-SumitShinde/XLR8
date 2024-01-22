@@ -1,44 +1,18 @@
+// index.js
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import './index.css';
+import { createRoot } from 'react-dom/client';
 import App from './App';
-import Dashboard from './pages/Dashboard';
-import reportWebVitals from './reportWebVitals';
-import MyStrategy from './pages/MyStrategy';
-import CheckUserDetails from './services/checkUserDetails';
-import CreateStrategy from './pages/CreateStrategy';
+import { AuthProvider } from './context/AuthContext';
 
-const Root = () => {
-  const userDetails = CheckUserDetails()
 
-  return (
-    <React.StrictMode>
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={<App />}
-          />
-          <Route
-            path="/dashboard"
-            element={userDetails ? <Dashboard userDetails={userDetails}/> : <Navigate to="/" />}
-          />
-          <Route
-            path="/strategy"
-            element={userDetails ? <MyStrategy /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/create-strategy"
-            element={<CreateStrategy/>}
-          />
-        </Routes>
-      </Router>
-    </React.StrictMode>
-  );
-};
+const root = createRoot(document.getElementById('root'));
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Root />);
+root.render(
+  <AuthProvider>
+    <App />
+  </AuthProvider>
+);
 
-reportWebVitals();
+
+
+

@@ -7,15 +7,15 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useNavigate } from "react-router-dom";
-import CheckUserDetails from "../services/checkUserDetails";
+import { useAuth } from '../context/AuthContext'; 
 
 function AppNavbar() {
+  const { isLoggedIn } = useAuth();
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const navigate = useNavigate();
-  const userDetails = CheckUserDetails();
 
   const navigateToDashboard = () => {
-    if(userDetails){
+    if(isLoggedIn){
       navigate("/dashboard");
     }else{
       navigate("/");
@@ -24,8 +24,8 @@ function AppNavbar() {
   };
 
   const navigateToStrategies = () => {
-    if(userDetails){
-      navigate("/strategy");
+    if(isLoggedIn){
+      navigate("/my-strategies");
     }else{
       navigate("/");
     }

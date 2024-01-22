@@ -3,10 +3,13 @@ import AppNavbar from "../components/Navbar";
 import OptionsTradeCard from "../components/OptionsTradeCard";
 import {Container, Row, Col} from "react-bootstrap";
 import UserInfoCard from "../components/UserInfoCard";
+import { useAuth } from "../context/AuthContext";
+import dataProcessService from "../services/dataProcessService";
 
-function Dashboard(userDetails) {
+function Dashboard() {
+  const { user } = useAuth();
 
-  const userInfo = userDetails.userDetails;
+  const userInfo = dataProcessService(user);
   const bankNiftyProps = {
     headerContent: "Bank Nifty",
     indexCode:"NSE:NIFTYBANK-INDEX",
@@ -21,19 +24,18 @@ function Dashboard(userDetails) {
     headerContent: "Fin Nifty",
     indexCode:"NSE:FINNIFTY-INDEX",
   };
-  const user = {
+  const userData = {
     name: userInfo.name,
-    fund: '$100,000',
+    fund: userInfo.funds
   };
 
   return (
     <div className="App">
-      {console.log(userInfo)}
       <AppNavbar />
       <Container fluid="md" gap={2}>
       <Row className="mb-3">
         <Col className="">
-          <UserInfoCard {...user} />
+          <UserInfoCard {...userData} />
         </Col>
       </Row>
       <Row>

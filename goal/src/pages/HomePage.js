@@ -1,39 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
-import {Button, Container, Row, Col} from "react-bootstrap";
+import {Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
+import AppNavbar from '../components/Navbar';
+import { useAuth } from "../context/AuthContext";
 
 function HomePage() {
-  const [userDetails, setUserDetails] = useState(null);
+  const { setUser, isLoggedIn, setIsloggedIn } = useAuth();
+
+  const login = (data) => {
+    setIsloggedIn(true);
+    setUser(data);
+  };
+
+  const loggedOut = (e) => {
+    e.preventDefault();
+    setIsloggedIn(false);
+    setUser(null);
+  };
+
   const navigate = useNavigate();
 
   useEffect(() => {
     // If user details are available, navigate to the personalized dashboard
-    if (userDetails) {
+    if (isLoggedIn) {
       navigate('/dashboard');
     }
-  }, [userDetails, navigate]);
+  }, [isLoggedIn, navigate]);
 
   const handleLogin = async () => {
     try {
-     // Make API call using the environment variable
      const apiUrl = process.env.REACT_APP_API_SERVER + '/getUserDetails';
      const response = await axios.get(apiUrl);
 
      if(response.status === 200){
-      const { data } = response.data;
-      setUserDetails(data);
+      login(response.data)
      }else{
+      loggedOut();
       console.log('Missing User Details:');
      }
     } catch (error) {
       // Handle errors
+      loggedOut();
       console.error('Error fetching user details:', error);
     }
   };
 
   return (
-    <Container> 
+    <div>
+      <AppNavbar/>
+      <Container> 
       <Row>
         <Col>
           <Button variant="primary" onClick={handleLogin}>
@@ -42,6 +58,8 @@ function HomePage() {
         </Col>
       </Row>
     </Container>
+    </div>
+
   );
 }
 
