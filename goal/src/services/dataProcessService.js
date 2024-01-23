@@ -5,7 +5,7 @@ export default function dataProcessService(response) {
     const fund = response.fund.fund_limit[9].equityAmount;
     data = {
       'name': name ? name: 'test Name',
-      'funds': fund ? fund: 'test Funds'
+      'funds': (fund===0) || fund ? fund: '1122 test Funds'
     }
   }
   return data;

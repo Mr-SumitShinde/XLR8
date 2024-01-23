@@ -8,6 +8,7 @@ import {
   Col,
   OverlayTrigger,
   Tooltip,
+  Container
 } from "react-bootstrap";
 
 function OptionsTradeCard(props) {
@@ -60,7 +61,7 @@ function OptionsTradeCard(props) {
       <Card.Header as="h3">{headerContent}</Card.Header>
       <Card.Body>
         <Form>
-          <container>
+          <Container>
             <Row className="justify-content-md-center">
               <Col sm={4}>
                 <Form.Check
@@ -81,7 +82,7 @@ function OptionsTradeCard(props) {
                 />
               </Col>
             </Row>
-          </container>
+          </Container>
         </Form>
         {isLoading ? (
           <Button className="mt-3" variant="primary" disabled>
